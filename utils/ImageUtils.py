@@ -4,24 +4,11 @@
 from PIL import Image, ImageFilter
 import time
 import aircv as ac
-
-
-def gray(src):
-    image = Image.open(src)
-    image = image.convert('L')
-    image = image.filter(ImageFilter.SHARPEN)
-    image.save(src)
-
-
-def gray1(src):
-    image = Image.open(src)
-    image = image.convert('1')
-    image.save(src + '.png')
+import cv2
 
 
 # 查询子图片在截图的位置
 def find_position(src, obj):
-    gray(src)
     time.sleep(1)
     src_img = ac.imread(src)
     obj_img = ac.imread(obj)
@@ -32,4 +19,17 @@ def find_position(src, obj):
         return None
 
 
-# gray1("/Users/blue/Downloads/tmp.png")
+# print circle_center_pos
+def draw_circle(position):
+    img_src = ac.imread('../tmp.png')
+    cv2.circle(img_src, position, 50, (0, 255, 0), 5)
+    cv2.imshow('objDetect', img_src)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    # position = find_position('../tmp.png', '../img/skill1.png')
+    position = (145, 170)
+    print position
+    draw_circle(position)
