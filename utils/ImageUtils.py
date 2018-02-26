@@ -1,7 +1,6 @@
 #!/bin/env python
 # encoding:utf-8
 
-from PIL import Image, ImageFilter
 import time
 import aircv as ac
 import cv2
@@ -20,16 +19,16 @@ def find_position(src, obj):
 
 
 # print circle_center_pos
-def draw_circle(position):
+def draw_circle(pos):
     img_src = ac.imread('../tmp.png')
-    cv2.circle(img_src, position, 50, (0, 255, 0), 5)
+    cv2.circle(img_src, pos, 50, (0, 255, 0), 5)
     cv2.imshow('objDetect', img_src)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    # position = find_position('../tmp.png', '../img/skill1.png')
-    position = (145, 170)
+    position = find_position('../tmp.png', '../img/skill1.png')
+    # position = (30, 30)
     print position
     draw_circle(position)
