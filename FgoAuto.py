@@ -15,8 +15,7 @@ c = wda.Client('http://localhost:8100')
 s = c.session('com.bilibili.fatego')
 
 
-def screen_shot_and_find_location(src, timeout=2, ignore=False):
-    time.sleep(timeout)
+def screen_shot_and_find_location(src, timeout=1, ignore=False):
     count = 0
     while True:
         c.screenshot(tmp_file)
@@ -26,7 +25,7 @@ def screen_shot_and_find_location(src, timeout=2, ignore=False):
         if pos is not None:
             print '[' + str(count) + ']' + str(pos)
             tap(pos[0], pos[1])
-            time.sleep(2)
+            time.sleep(timeout)
             return pos
         else:
             print '[' + str(count) + ']Not Found'
@@ -45,15 +44,11 @@ def tap(x, y, timeout=2):
 
 
 def fix_location_and_tap_on_right(x, y, timeout=2):
-    if timeout != 0:
-        time.sleep(timeout)
-    tap(x + 20, y + 60)
+    tap(x + 20, y + 60, timeout)
 
 
 def fix_location_and_tap_on_left(x, y, timeout=2):
-    if timeout != 0:
-        time.sleep(timeout)
-    tap(x - 60, y + 150)
+    tap(x - 60, y + 150, timeout)
 
 
 def sleep(timeout):
@@ -62,20 +57,20 @@ def sleep(timeout):
 
 def kong_ming_skill():
     # skill1 - 孔明(鉴识眼)
-    fix_location_and_tap_on_right(160, 700, 0)
+    fix_location_and_tap_on_right(160, 700, 1)
     # select 伯爵
-    fix_location_and_tap_on_right(400, 300, 0)
+    fix_location_and_tap_on_right(400, 300, 1)
     # skill2 - 孔明(忠言)
-    fix_location_and_tap_on_right(160, 770, 0)
+    fix_location_and_tap_on_right(160, 770, 2)
     # skill3 - 孔明(指挥)
-    fix_location_and_tap_on_right(160, 840, 0)
+    fix_location_and_tap_on_right(160, 840, 2)
 
 
 def edmund_skill():
     # skill1 - 伯爵
-    fix_location_and_tap_on_left(90, 150, 0)
+    fix_location_and_tap_on_left(90, 150, 2)
     # skill2 - 伯爵
-    fix_location_and_tap_on_left(160, 150, 0)
+    fix_location_and_tap_on_left(160, 150, 2)
 
 
 def attack(count):
@@ -108,39 +103,53 @@ def replace_kong_ming():
     fix_location_and_tap_on_right(100, 660, 0)
 
 
-def login():
-    tap(200, 200, 6)
-    tap(200, 200, 3)
-    tap(200, 200, 3)
-    screen_shot_and_find_location('close.png', 2, True)
-    # task1
-    fix_location_and_tap_on_right(342, 853, 1)
-    # task2
-    fix_location_and_tap_on_right(523, 926, 1)
+def start_task():
     # task3
     fix_location_and_tap_on_right(520, 905, 1)
     # find support 孔明
-    screen_shot_and_find_location('support.png', 1)
+    screen_shot_and_find_location('support.png', 2)
     # start
     fix_location_and_tap_on_right(46, 1153, 1)
     sleep(16)
     edmund_skill()
     attack(1)
-    sleep(24)
+    sleep(28)
     kong_ming_skill()
     replace_kong_ming()
     sleep(3)
     kong_ming_skill()
     attack(2)
-    sleep(22)
-    attack(3)
     sleep(26)
+    attack(3)
+    sleep(28)
     tap(200, 200, 4)
     tap(200, 200, 4)
     screen_shot_and_find_location('next.png', 4)
 
 
-login()
+def begin():
+    tap(200, 200, 6)
+    tap(200, 200, 3)
+    tap(200, 200, 3)
+    screen_shot_and_find_location('close.png', 2, True)
+    # close friend warning
+    fix_location_and_tap_on_left(180, 150, 1)
+    # task1
+    fix_location_and_tap_on_right(342, 853, 1)
+    # task2
+    fix_location_and_tap_on_right(523, 926, 1)
+    count = 1
+    while True:
+        if count != 1:
+            sleep(3)
+            # close friend warning
+            fix_location_and_tap_on_left(180, 150, 1)
+        count = count + 1
+        start_task()
+        print 'end ' + str(count) + ' times'
+
+
+begin()
 
 if __name__ == '__main__':
     unittest.main()
