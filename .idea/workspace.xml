@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b356bc90-2ab9-4ca8-88b4-7eced0c00ed9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/FgoAuto.py" afterPath="$PROJECT_DIR$/FgoAuto.py" />
-      <change beforePath="$PROJECT_DIR$/img/skill1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/skill2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/task.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/task1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/img/task2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/tmp.png" afterPath="$PROJECT_DIR$/tmp.png" />
-      <change beforePath="$PROJECT_DIR$/utils/ImageUtils.py" afterPath="$PROJECT_DIR$/utils/ImageUtils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -218,6 +210,14 @@
       <option name="presentableId" value="Default" />
       <updated>1517826813625</updated>
     </task>
+    <task id="LOCAL-00001" summary="basic version">
+      <created>1519632945142</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1519632945142</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -251,6 +251,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="basic version" />
+    <option name="LAST_COMMIT_MESSAGE" value="basic version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
