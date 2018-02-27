@@ -19,7 +19,7 @@ def screen_shot_and_find_location(src, timeout=1, ignore=False):
     count = 0
     while True:
         c.screenshot(tmp_file)
-        time.sleep(1)
+        time.sleep(2)
         pos = ImageUtils.find_position(tmp_file, img_path + "/" + src)
         count = count + 1
         if pos is not None:
@@ -53,6 +53,13 @@ def fix_location_and_tap_on_left(x, y, timeout=2):
 
 def sleep(timeout):
     time.sleep(timeout)
+
+
+def mei_lin_skill():
+    # skill1 - 梅林(梦幻魅力)
+    fix_location_and_tap_on_right(160, 700, 2)
+    # skill2 - 梅林(幻术)
+    fix_location_and_tap_on_right(160, 770, 2)
 
 
 def kong_ming_skill():
@@ -106,15 +113,16 @@ def replace_kong_ming():
 def start_task():
     # task3
     fix_location_and_tap_on_right(520, 905, 1)
-    # find support 孔明
-    screen_shot_and_find_location('support.png', 2)
+    select_apple()
+    # select support
+    fix_location_and_tap_on_right(419, 276, 1)
     # start
     fix_location_and_tap_on_right(46, 1153, 1)
     sleep(16)
     edmund_skill()
     attack(1)
     sleep(28)
-    kong_ming_skill()
+    mei_lin_skill()
     replace_kong_ming()
     sleep(3)
     kong_ming_skill()
@@ -124,7 +132,22 @@ def start_task():
     sleep(28)
     tap(200, 200, 4)
     tap(200, 200, 4)
-    screen_shot_and_find_location('next.png', 4)
+    # tap on 42, 1148
+    pos = screen_shot_and_find_location('next.png', 4, True)
+    if pos is None:
+        tap(42, 200, 4)
+        tap(42, 200, 4)
+        screen_shot_and_find_location('next.png', 4)
+
+
+def select_apple():
+    # select apple
+    pos = screen_shot_and_find_location('golden_apple.png', 2, True)
+    if pos is not None:
+        # enter
+        screen_shot_and_find_location('apple_enter.png', 2)
+        # click task3 one more time
+        fix_location_and_tap_on_right(520, 905, 1)
 
 
 def begin():
