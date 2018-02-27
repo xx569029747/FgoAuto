@@ -15,7 +15,7 @@ c = wda.Client('http://localhost:8100')
 s = c.session('com.bilibili.fatego')
 
 
-def screen_shot_and_find_location(src, timeout=1, ignore=False):
+def check_exit(src, timeout=1):
     count = 0
     while True:
         c.screenshot(tmp_file)
@@ -24,16 +24,22 @@ def screen_shot_and_find_location(src, timeout=1, ignore=False):
         count = count + 1
         if pos is not None:
             print '[' + str(count) + ']' + str(pos)
-            tap(pos[0], pos[1])
-            time.sleep(timeout)
             return pos
-        else:
+        elif count == 4:
             print '[' + str(count) + ']Not Found'
-            if count == 4:
-                if not ignore:
-                    raise RuntimeError
-                else:
-                    return None
+            return None
+
+
+def screen_shot_and_find_location(src, timeout=1, ignore=False):
+    pos = check_exit(src, timeout)
+    if pos is not None:
+        tap(pos[0], pos[1])
+        time.sleep(timeout)
+        return pos
+    elif ignore:
+        return None
+    else:
+        raise RuntimeError
 
 
 def tap(x, y, timeout=2):
@@ -89,11 +95,17 @@ def attack(count):
         # Strokes 1
         fix_location_and_tap_on_right(500, 400, 0)
     elif count == 2:
-        # Strokes 1
+        # Strokes 2
         fix_location_and_tap_on_right(500, 550, 0)
     elif count == 3:
-        # Strokes 2
-        fix_location_and_tap_on_right(500, 400, 0)
+        pos = check_exit('skill1.png')
+        if pos is None:
+            fix_location_and_tap_on_left(480, 150, 0)
+            sleep(28)
+            attack(3)
+        else:
+            # Strokes 1
+            fix_location_and_tap_on_right(500, 400, 0)
     # role 2
     fix_location_and_tap_on_left(300, 150, 0)
 
