@@ -4,11 +4,13 @@ import unittest
 
 import wda
 import time
+import sys
 from utils import ImageUtils
 
 # 定义图片存储位置
 img_path = 'img'
 tmp_file = 'tmp.png'
+apple_num = 67
 
 # 启动ios客户端进程
 c = wda.Client('http://localhost:8100')
@@ -101,7 +103,7 @@ def attack(count):
     elif count == 3:
         pos = check_exit('skill1.png')
         if pos is None:
-            fix_location_and_tap_on_left(480, 150, 0)
+            fix_location_and_tap_on_right(160, 700, 1)
             need_next = True
         else:
             # Strokes 1
@@ -163,6 +165,10 @@ def select_apple():
         screen_shot_and_find_location('apple_enter.png', 2)
         # click task3 one more time
         fix_location_and_tap_on_right(520, 905, 1)
+        global apple_num
+        apple_num = apple_num - 1
+        if apple_num == 0:
+            sys.exit()
 
 
 def begin():
