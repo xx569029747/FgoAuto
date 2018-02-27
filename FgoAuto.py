@@ -87,6 +87,7 @@ def edmund_skill():
 
 
 def attack(count):
+    need_next = False
     # attack
     screen_shot_and_find_location('attack.png')
     # role 1
@@ -101,13 +102,15 @@ def attack(count):
         pos = check_exit('skill1.png')
         if pos is None:
             fix_location_and_tap_on_left(480, 150, 0)
-            sleep(28)
-            attack(3)
+            need_next = True
         else:
             # Strokes 1
             fix_location_and_tap_on_right(500, 400, 0)
     # role 2
     fix_location_and_tap_on_left(300, 150, 0)
+    if need_next:
+        sleep(28)
+        attack(3)
 
 
 def replace_kong_ming():
