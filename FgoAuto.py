@@ -17,11 +17,11 @@ c = wda.Client('http://localhost:8100')
 s = c.session('com.bilibili.fatego')
 
 
-def check_exit(src, timeout=1):
+def check_exit(src):
     count = 0
     while True:
         c.screenshot(tmp_file)
-        time.sleep(2)
+        time.sleep(1)
         pos = ImageUtils.find_position(tmp_file, img_path + "/" + src)
         count = count + 1
         if pos is not None:
@@ -33,7 +33,7 @@ def check_exit(src, timeout=1):
 
 
 def screen_shot_and_find_location(src, timeout=1, ignore=False):
-    pos = check_exit(src, timeout)
+    pos = check_exit(src)
     if pos is not None:
         tap(pos[0], pos[1])
         time.sleep(timeout)
