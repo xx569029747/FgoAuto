@@ -10,14 +10,14 @@ from utils import ImageUtils
 # 定义图片存储位置
 img_path = 'img'
 tmp_file = 'tmp.png'
-apple_num = 67
+apple_num = 20
 
 # 启动ios客户端进程
 c = wda.Client('http://localhost:8100')
 s = c.session('com.bilibili.fatego')
 
 
-def check_exit(src):
+def check_exit(src, limit=4):
     count = 0
     while True:
         c.screenshot(tmp_file)
@@ -27,7 +27,7 @@ def check_exit(src):
         if pos is not None:
             print '[' + str(count) + ']' + str(pos)
             return pos
-        elif count == 4:
+        elif count == limit:
             print '[' + str(count) + ']Not Found'
             return None
 
@@ -111,7 +111,7 @@ def attack(count):
     # role 2
     fix_location_and_tap_on_left(300, 150, 0)
     if need_next:
-        sleep(28)
+        check_exit('attack.png', 30)
         attack(3)
 
 
@@ -135,16 +135,16 @@ def start_task():
     fix_location_and_tap_on_right(419, 276, 1)
     # start
     fix_location_and_tap_on_right(46, 1153, 1)
-    sleep(16)
+    check_exit('attack.png', 30)
     edmund_skill()
     attack(1)
-    sleep(28)
+    check_exit('attack.png', 30)
     mei_lin_skill()
     replace_kong_ming()
     sleep(3)
     kong_ming_skill()
     attack(2)
-    sleep(26)
+    check_exit('attack.png', 30)
     attack(3)
     sleep(28)
     tap(200, 200, 4)
@@ -164,7 +164,7 @@ def select_apple():
         # enter
         screen_shot_and_find_location('apple_enter.png', 2)
         # click task3 one more time
-        fix_location_and_tap_on_right(520, 905, 1)
+        # fix_location_and_tap_on_right(520, 905, 1)
         global apple_num
         apple_num = apple_num - 1
         if apple_num == 0:
@@ -179,12 +179,12 @@ def begin():
     # close friend warning
     fix_location_and_tap_on_left(180, 150, 1)
     # task1
-    fix_location_and_tap_on_right(342, 853, 1)
+    fix_location_and_tap_on_right(280, 853, 1)
     # task2
     fix_location_and_tap_on_right(523, 926, 1)
-    count = 1
+    count = 0
     while True:
-        if count != 1:
+        if count != 0:
             sleep(3)
             # close friend warning
             fix_location_and_tap_on_left(180, 150, 1)
